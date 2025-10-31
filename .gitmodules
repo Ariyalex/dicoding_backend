@@ -1,3 +1,6 @@
 [submodule "dicoding-book-shelf-submission"]
 	path = dicoding-book-shelf-submission
 	url = https://github.com/Ariyalex/dicoding-book-shelf-submission.git
+[submodule "dicoding-note-backend"]
+	path = dicoding-note-backend
+	url = https://github.com/Ariyalex/dicoding-note-backend.git
