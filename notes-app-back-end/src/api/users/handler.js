@@ -32,10 +32,8 @@ class UsersHandler {
 
   async getUserByIdHandler(request, h) {
     try {
-      console.log("Getting user with ID:", request.params.id);
       const { id } = request.params;
       const user = await this._service.getUserById(id);
-      console.log("User found:", user);
 
       return {
         status: "success",
@@ -52,8 +50,6 @@ class UsersHandler {
         response.code(404);
         return response;
       }
-
-      console.error("Unexpected error:", error.message, error.stack);
 
       const response = h.response({
         status: "error",

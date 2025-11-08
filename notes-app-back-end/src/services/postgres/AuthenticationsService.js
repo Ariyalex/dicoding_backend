@@ -8,14 +8,14 @@ class AuthenticationsService {
 
   async addRefreshToken(token) {
     const query = {
-      text: "insert into authentications value($1)",
+      text: "insert into authentications values($1)",
       values: [token],
     };
 
     await this._pool.query(query);
   }
 
-  async varifyRefreshToken(token) {
+  async verifyRefreshToken(token) {
     const query = {
       text: "select token from authentications where token = $1",
       values: [token],
@@ -30,7 +30,7 @@ class AuthenticationsService {
 
   async deleteRefreshToken(token) {
     const query = {
-      text: "delete token from authentications where token = $1",
+      text: "delete from authentications where token = $1",
       values: [token],
     };
 
