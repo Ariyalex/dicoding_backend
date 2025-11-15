@@ -96,4 +96,6 @@ const init = async () => {
   console.log(`Server berjalan pada ${server.info.uri}`);
 };
 
+//nambahin comentar doang buat github biar streaknya tidak kelewat
+
 init();
