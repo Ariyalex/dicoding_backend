@@ -14,9 +14,13 @@ const authentications = require("./api/authentications");
 const AuthenticationsService = require("./services/postgres/AuthenticationsService");
 const TokenManager = require("./tokenize/TokenManager");
 const AuthenticationsValidator = require("./validator/authentications");
+const CollaborationsService = require("./services/postgres/CollaborationsService");
+const collaborations = require("./api/collaborations");
+const CollaborationsValidator = require("./validator/collaborations");
 
 const init = async () => {
-  const notesService = new NotesService();
+  const collaborationsService = new CollaborationsService();
+  const notesService = new NotesService(collaborationsService);
   const usersService = new UsersService();
   const authenticationsService = new AuthenticationsService();
 
@@ -76,6 +80,15 @@ const init = async () => {
         validator: AuthenticationsValidator,
       },
     },
+    {
+      plugin: collaborations,
+      options: {
+        collaborationsService,
+        notesService,
+        tokenManager: TokenManager,
+        validator: CollaborationsValidator,
+      },
+    },
   ]);
 
   server.ext("onPreResponse", (request, h) => {
@@ -89,6 +102,16 @@ const init = async () => {
       newResponse.code(response.statusCode);
       return newResponse;
     }
+
+    if (response && response.isBoom) {
+      // log full error to terminal for debugging
+      console.error("Request error:", {
+        message: response.message,
+        stack: response.stack,
+        output: response.output,
+      });
+    }
+
     return h.continue;
   });
 

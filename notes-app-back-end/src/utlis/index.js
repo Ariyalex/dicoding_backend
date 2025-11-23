@@ -1,5 +1,13 @@
 /* eslint-disable camelcase */
-function mapDBToModel({ id, title, body, tags, created_at, updated_at }) {
+function mapDBToModel({
+  id,
+  title,
+  body,
+  tags,
+  created_at,
+  updated_at,
+  username,
+}) {
   const parsePgArray = (val) => {
     if (!val) return [];
     if (Array.isArray(val)) return val;
@@ -17,6 +25,7 @@ function mapDBToModel({ id, title, body, tags, created_at, updated_at }) {
     tags: parsePgArray(tags),
     createdAt: created_at,
     updatedAt: updated_at,
+    username,
   };
 }
 
